@@ -36,21 +36,20 @@ function SemesterCard({
               onRemove={() => onRemoveCourse(semester.id, course.id)}
             />
           ))}
-
-          <button
-            type="button"
-            className="add-course"
-            onClick={() => onAddCourse(semester.id)}
-          >
-            + Add course
-          </button>
+        <div className="semester-actions">
+            <button
+                type="button"
+                className="add-course"
+                onClick={() => onAddCourse(semester.id)}>
+                + Add course
+           </button>
           <button
             type="button"
             className="delete-semester"
-            onClick={() => onRemoveSemester(semester.id)}
-          >
+            onClick={() => onRemoveSemester(semester.id)}>
             Delete semester
-        </button>
+         </button>
+        </div>
         </div>
       )}
     </article>
