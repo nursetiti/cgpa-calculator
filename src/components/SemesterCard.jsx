@@ -1,4 +1,6 @@
 import CourseRow from './CourseRow';
+import { gpa, formatGpa } from '../utils/gpa';
+
 
 function SemesterCard({
   semester,
@@ -23,7 +25,7 @@ function SemesterCard({
           <strong>{semester.name}</strong>
           <small>{semester.courses.length} courses, {totalUnits} units</small>
         </span>
-        <span className="semester-gpa">GPA –</span>
+        <span className="semester-gpa">{formatGpa(gpa(semester.courses))}</span>
       </button>
 
       {isOpen && (
@@ -38,10 +40,10 @@ function SemesterCard({
           ))}
         <div className="semester-actions">
             <button
-                type="button"
-                className="add-course"
-                onClick={() => onAddCourse(semester.id)}>
-                + Add course
+              type="button"
+              className="add-course"
+              onClick={() => onAddCourse(semester.id)}>
+              + Add course
            </button>
           <button
             type="button"

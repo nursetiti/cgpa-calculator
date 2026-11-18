@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import SemesterCard from './components/SemesterCard';
-
+import Summary from './components/Summary';
 
 function semesterName(index) {
   const level = (Math.floor(index / 2) + 1) * 100;
@@ -73,7 +73,12 @@ function App() {
 }
   return (
     <main className="app">
-      <h1>CGPA</h1>
+      <header className="topbar">
+        <h1>CGPA</h1>
+        <span>5.0 scale</span>
+      </header>
+
+      <Summary semesters={semesters} />
 
       <section className="semesters">
         {semesters.map((semester, index) => (
