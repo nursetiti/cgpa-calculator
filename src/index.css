@@ -543,3 +543,55 @@ select {
 @media (prefers-reduced-motion: reduce) {
   .bar { transition: none; }
 }
+/* ---------- Clear data ---------- */
+.clear-data {
+  align-self: center;
+  margin-top: 8px;
+  min-height: 44px;
+  padding: 10px 12px;
+  background: none;
+  border: 0;
+  font-size: 14px;
+  color: var(--muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.clear-data:hover {
+  color: var(--bad);
+}
+
+.clear-confirm {
+  margin-top: 8px;
+  background: #FDF1F0;
+  border: 1px solid #F3C9C4;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.clear-confirm p {
+  margin: 0 0 12px;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.clear-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.clear-actions button {
+  flex: 1;
+  height: 44px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.clear-actions .danger {
+  background: var(--bad);
+  border-color: var(--bad);
+  color: #FFFFFF;
+}

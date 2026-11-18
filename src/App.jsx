@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import SemesterCard from './components/SemesterCard';
 import Summary from './components/Summary';
+import ClearData from './components/ClearData';
 import Tabs from './components/Tabs';
 import Improve from './components/Improve';
 
@@ -16,8 +17,12 @@ function loadSemesters() {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) return JSON.parse(saved);
   } catch {
-    // broken data or storage blocked: fall through and start fresh
+    // broken data or storage blocked: start fresh
   }
+  return startingSemesters();
+}
+
+function startingSemesters() {
   return [
     {
       id: crypto.randomUUID(),
@@ -26,14 +31,13 @@ function loadSemesters() {
     },
   ];
 }
-
 function App() {
   const [semesters, setSemesters] = useState(loadSemesters);
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(semesters));
     } catch {
-      
+
     }
   }, [semesters]);
   const [tab, setTab] = useState('semesters');
@@ -90,7 +94,12 @@ function App() {
   function removeSemester(semesterId) {
     setSemesters((prev) => prev.filter((sem) => sem.id !== semesterId));
     setOpenIndex(-1);
-}
+  }
+
+  function clearAll() {
+    setSemesters(startingSemesters());
+    setOpenIndex(0);
+  }
   return (
     <main className="app">
       <header className="topbar">
@@ -117,6 +126,7 @@ function App() {
           <button type="button" className="add-semester" onClick={addSemester}>
             Add {semesterName(semesters.length)}
           </button>
+          <ClearData onClear={clearAll} />
       </section>
           ) : (
           <Improve semesters={semesters} />
