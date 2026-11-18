@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import SemesterCard from './components/SemesterCard';
 import Summary from './components/Summary';
 import Tabs from './components/Tabs';
@@ -9,15 +9,33 @@ function semesterName(index) {
   const term = index % 2 === 0 ? 'First' : 'Second';
   return `${level} Level, ${term} Semester`;
 }
+const STORAGE_KEY = 'cgpa-calculator:semesters';
+
+function loadSemesters() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) return JSON.parse(saved);
+  } catch {
+    // broken data or storage blocked: fall through and start fresh
+  }
+  return [
+    {
+      id: crypto.randomUUID(),
+      name: semesterName(0),
+      courses: [{ id: crypto.randomUUID(), code: '', units: 3, grade: 'A' }],
+    },
+  ];
+}
 
 function App() {
-  const [semesters, setSemesters] = useState([
-  {
-    id: crypto.randomUUID(),
-    name: semesterName(0),
-    courses: [{ id: crypto.randomUUID(), code: '', units: 3, grade: 'A' }],
-  },
-  ]);
+  const [semesters, setSemesters] = useState(loadSemesters);
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(semesters));
+    } catch {
+      
+    }
+  }, [semesters]);
   const [tab, setTab] = useState('semesters');
   const [openIndex, setOpenIndex] = useState(0);
 

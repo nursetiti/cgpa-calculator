@@ -60,3 +60,19 @@ export function bestPossible(semesters, unitsLeft) {
   const { units, points } = totals(semesters.flatMap((s) => s.courses));
   return (points + 5 * unitsLeft) / (units + unitsLeft);
 }
+// The courses that pulled the CGPA down the most, biggest first
+export function costliestCourses(semesters, limit = 3) {
+  const allWithSemester = semesters.flatMap((s) =>
+    s.courses.map((c) => ({ ...c, semesterName: s.name }))
+  );
+
+  const { units } = totals(allWithSemester);
+  if (units === 0) return [];
+
+  return allWithSemester
+    .map((c) => ({ ...c, lost: c.units * (5 - GRADE_POINTS[c.grade]) }))
+    .filter((c) => c.lost > 0)
+    .sort((a, b) => b.lost - a.lost)
+    .slice(0, limit)
+    .map((c) => ({ ...c, cgpaCost: c.lost / units }));
+}

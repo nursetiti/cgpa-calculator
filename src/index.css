@@ -418,3 +418,128 @@ select {
 .tone-good { color: var(--good); }
 .tone-bad { color: var(--bad); }
 .tone-accent { color: var(--accent); }
+/* ---------- Costly courses ---------- */
+.card-hint {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.costly-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.costly-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-top: 1px solid #EEF0F3;
+}
+
+.costly-grade {
+  width: 30px;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.costly-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.costly-info strong {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.costly-info small {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.costly-cost {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--bad);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Grade colours (reusable anywhere) */
+.grade-A { color: var(--good); }
+.grade-B { color: var(--accent); }
+.grade-C { color: var(--text); }
+.grade-D { color: var(--warn); }
+.grade-E,
+.grade-F { color: var(--bad); }
+
+/* ---------- GPA trend ---------- */
+.trend-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.trend-text {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 110px;
+  border-bottom: 1px solid var(--border);
+}
+
+.bar-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 4px;
+}
+
+.bar-value {
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.bar {
+  width: 100%;
+  max-width: 36px;
+  background: #C9C0F2;
+  border-radius: 4px 4px 0 0;
+  transition: height 300ms ease;
+}
+
+.bar.is-latest {
+  background: var(--accent);
+}
+
+.bar-labels {
+  display: flex;
+  gap: 8px;
+}
+
+.bar-labels span {
+  flex: 1;
+  text-align: center;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar { transition: none; }
+}
