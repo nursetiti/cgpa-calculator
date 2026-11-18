@@ -48,3 +48,15 @@ export function nextClass(value) {
 export function formatGpa(value) {
   return value.toFixed(2);
 }
+
+// Average grade points needed in the remaining units to reach a target CGPA
+export function neededAverage(semesters, target, unitsLeft) {
+  const { units, points } = totals(semesters.flatMap((s) => s.courses));
+  return (target * (units + unitsLeft) - points) / unitsLeft;
+}
+
+// The best CGPA possible if every remaining unit gets an A
+export function bestPossible(semesters, unitsLeft) {
+  const { units, points } = totals(semesters.flatMap((s) => s.courses));
+  return (points + 5 * unitsLeft) / (units + unitsLeft);
+}

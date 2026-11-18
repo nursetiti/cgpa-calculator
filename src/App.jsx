@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import SemesterCard from './components/SemesterCard';
 import Summary from './components/Summary';
+import Tabs from './components/Tabs';
+import Improve from './components/Improve';
 
 function semesterName(index) {
   const level = (Math.floor(index / 2) + 1) * 100;
@@ -16,7 +18,7 @@ function App() {
     courses: [{ id: crypto.randomUUID(), code: '', units: 3, grade: 'A' }],
   },
   ]);
-
+  const [tab, setTab] = useState('semesters');
   const [openIndex, setOpenIndex] = useState(0);
 
   // Update: .map() swaps in the changed course
@@ -79,25 +81,28 @@ function App() {
       </header>
 
       <Summary semesters={semesters} />
-
-      <section className="semesters">
-        {semesters.map((semester, index) => (
-          
-          <SemesterCard
-            key={semester.id}
-            semester={semester}
-            isOpen={openIndex === index}
-            onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
-            onUpdateCourse={updateCourse}
-            onRemoveCourse={removeCourse}
-            onRemoveSemester={removeSemester}
-            onAddCourse={addCourse}
-          />
-        ))}
-        <button type="button" className="add-semester" onClick={addSemester}>
-          Add {semesterName(semesters.length)}
-        </button>
+      <Tabs active={tab} onChange={setTab} />
+      {tab === 'semesters' ? (
+        <section className="semesters">
+          {semesters.map((semester, index) => (
+            <SemesterCard
+              key={semester.id}
+              semester={semester}
+              isOpen={openIndex === index}
+              onToggle={() => setOpenIndex(openIndex === index ? -1 : index)}
+              onUpdateCourse={updateCourse}
+              onRemoveCourse={removeCourse}
+              onRemoveSemester={removeSemester}
+              onAddCourse={addCourse}
+            />
+          ))}
+          <button type="button" className="add-semester" onClick={addSemester}>
+            Add {semesterName(semesters.length)}
+          </button>
       </section>
+          ) : (
+          <Improve semesters={semesters} />
+          )}
     </main>
   );
 }
